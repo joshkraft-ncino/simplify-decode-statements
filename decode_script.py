@@ -32,5 +32,31 @@ Use pprint for printing cleanly
 # Test data
 decode1 = "IN((Product_Number)), '02') AND IN((Class_Code)), '4') AND IN((Type_Code)), '8','5') AND IN((Purpose_Code)), '530'),'Commercial'"
 decode2 = "IN((Product_Number)), '06') AND IN((Class_Code)), '4') AND IN((Type_Code)), '1','3') AND IN((Purpose_Code)), '515', '530'),'Commercial'"
+decode3 = "IN((Product_Number)), '06') AND IN((Class_Code)), '4') AND IN((Type_Code)), '1','3') AND IN((Purpose_Code)), '515', '530'),'Residential'"
 
-print(decode1)
+test_list = [decode1, decode2, decode3]
+# String modification actions
+
+# Get product
+def product_line_extract(decode_statement_list):
+    for statement in decode_statement_list:
+        product_line = statement.rsplit(sep=',', maxsplit=1)[1]
+        print(product_line)
+
+output_list = product_line_extract(test_list)
+print(output_list)
+
+# Numerical string modification actions
+a = '1'
+b = '5'
+c = '3'
+
+listValues = []
+
+listValues.extend([a, b, c])
+
+# print(listValues)
+
+listValues.sort(key=int)
+
+# print(listValues)
