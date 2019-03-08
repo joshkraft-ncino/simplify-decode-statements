@@ -29,6 +29,8 @@ Should I break it up into pieces, i.e. fields, and then return a series of strin
 Any ideas for selecting items? Use regex and -select
 Use pprint for printing cleanly
 """
+import regex as re
+
 # Test data
 decode1 = "IN((Product_Number)), '02') AND IN((Class_Code)), '4') AND IN((Type_Code)), '8','5') AND IN((Purpose_Code)), '530'),'Commercial'"
 decode2 = "IN((Product_Number)), '06') AND IN((Class_Code)), '4') AND IN((Type_Code)), '1','3') AND IN((Purpose_Code)), '515', '530'),'Commercial'"
@@ -45,6 +47,20 @@ def product_line_extract(decode_statement_list):
 
 output_list = product_line_extract(test_list)
 print(output_list)
+
+# Get fields
+# Regex statement
+regex_fields = re.compile('/\(\(([^)]+)\)\)/')
+
+def field_extract(decode_statement_list):
+    for statement in decode_statement_list:
+        fields = re.search(regex_fields, statement)
+        output = fields.group()
+        print(output)
+
+field_list = field_extract(test_list)
+print(field_list)
+
 
 # Numerical string modification actions
 a = '1'
