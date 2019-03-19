@@ -65,3 +65,27 @@ listValues.append(c)
 sorted_list = listValues.sort(key=int)
 Values = ', '.join(listValues)
 print(Values)
+
+# Bring it together
+def decode_function(decode_statements):
+    """ Function to together previos logic. Determines if product line exists,
+    then if fields match. If true, append numbers together and sort. If false,
+    create new decode statement.
+    """
+
+    existing_prod_lines = []
+
+    for statement in decode_statements:
+
+        product_line = [statement.rsplit(sep=',', maxsplit=1)[1]]
+        fields = [re.findall(pattern, line) for line in test_list]
+
+        if product_line in existing_prod_lines:
+            print('Already exists')
+
+        else:
+            existing_prod_lines.append(product_line)
+            print('Does not exist')
+
+run = decode_function(test_list)
+print(run)
