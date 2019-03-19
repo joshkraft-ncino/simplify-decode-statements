@@ -37,42 +37,31 @@ decode2 = "IN((Product_Number)), '06') AND IN((Class_Code)), '4') AND IN((Type_C
 decode3 = "IN((Product_Number)), '06') AND IN((Class_Code)), '4') AND IN((Type_Code)), '1','3') AND IN((Purpose_Code)), '515', '530'),'Residential'"
 
 test_list = [decode1, decode2, decode3]
-# String modification actions
 
-# Get product
-def product_line_extract(decode_statement_list):
-    for statement in decode_statement_list:
-        product_line = statement.rsplit(sep=',', maxsplit=1)[1]
-        print(product_line)
+# GET PRODUCT LINES
 
-output_list = product_line_extract(test_list)
-print(output_list)
+product_lines = [line.rsplit(sep=',', maxsplit=1)[1] for line in test_list]
+print(product_lines)
 
-# Get fields
-# Regex statement
-regex_fields = re.compile('/\(\(([^)]+)\)\)/')
+# GET FIELDS
+pattern = r'\([()]*(\([^()]*\)[^()]*)*\)'
 
-def field_extract(decode_statement_list):
-    for statement in decode_statement_list:
-        fields = re.search(regex_fields, statement)
-        output = fields.group()
-        print(output)
+fields = [re.findall(pattern, line) for line in test_list]
+print(fields)
 
-field_list = field_extract(test_list)
-print(field_list)
+# GET NUMBERS
+numbers = [re.findall(r'\d', line) for line in test_list]   # should I create a group here? To create dict?
+print(numbers)
 
-
-# Numerical string modification actions
+# SORT NUMBERS
 a = '1'
 b = '5'
 c = '3'
-
 listValues = []
+listValues.append(a)
+listValues.append(b)
+listValues.append(c)
 
-listValues.extend([a, b, c])
-
-# print(listValues)
-
-listValues.sort(key=int)
-
-# print(listValues)
+sorted_list = listValues.sort(key=int)
+Values = ', '.join(listValues)
+print(Values)
