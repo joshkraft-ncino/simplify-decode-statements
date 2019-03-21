@@ -37,26 +37,37 @@ decodeLine = statements.pop(0)[0:-1]
 statementDict = {}
 for statement in statements:
     statement = statement[0:-1]
+
     # Get product line of statement
     productLine = statement.rsplit(sep=",'",maxsplit=1)[-1][0:-2]
+
     # If not in dict, add it
     if productLine not in statementDict.keys():
         statementDict[productLine] = {}
+
     # Get fields of statement
     fieldRegex = re.compile(r'RTRIM\((.*?)\)')
     fields = re.findall(fieldRegex,statement)
     fields.sort() #WHY are fields sorted here alphabetically? I think the order matters.
+
     # Create string of concatenated field names - serves as unique ID for merging
     fieldsID = ''.join(fields)
     if fieldsID not in statementDict[productLine].keys():
         statementDict[productLine][fieldsID] = {}   # WHY is this blank?
+
+    # Get numbers + sort
     for f in fields:
-        string = f+'numbers'
+        codeRegex = re.compile('\d+')
+        code = re.findall('\d+',statement)
+        string = f + str(code)
         # TODO: get sorted list of numbers and replace string var. Need to write regex that selects numbers
         # May use AND statement as a reference... but, need to account for last group of numbers
         if f not in statementDict[productLine][fieldsID].keys():
             statementDict[productLine][fieldsID][f] = string
+        print(string)
+        # THIS IS NOW FUNCTIONING. BUT, it needs to select only those numbers related to the field!
 
+'''
 # Create decode statements -----------------------------------------------------
 decodeList = []
 for k, v in statementDict.items():
@@ -76,3 +87,4 @@ output =  open('output.txt','w')
 output.write(decodeString)
 output.close()
 pprint(statementDict)
+'''
