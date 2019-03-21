@@ -7,6 +7,8 @@ General To Do
     - account for NA's (are all NA's using the same format?)
     - Figure out sorting... dictionaries cannot be sorted. As such, access the sub dictionary
       and using the length of that, instead of total field length which depends on word length
+    - Some statements point to multiple product lines?
+    - Sort product lines alphabetically?
 """
 
 

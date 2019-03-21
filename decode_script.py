@@ -16,76 +16,63 @@ Here is an example of a product line:
 In the above example, lines 1 and 2 should be combined, as they both contain the same fields and correspond to the same product line ('Commercial').
 Line 3 should not be combined, as it contains an extra field which is not contained in Lines 1 or 2.
 
-Steps to solve this problem:
-    1. Iterate over each row in the list, where each row is a decode statement.
-    2. Read the product line at the end of the decode statement
-        IF a decode statement exists with the same product line AND has the same fields
-            THEN concatenate the corresponding field values to the matching field, in ascending order
-        ELSE create a new decode statement
-
-Questions
-
-Should I break it up into pieces, i.e. fields, and then return a series of strings?
-Any ideas for selecting items? Use regex and -select
-Use pprint for printing cleanly
+General To Do
+    - Get list of numbers using regex, then sort ascending
+    - account for NA's (are all NA's using the same format?)
+    - Figure out sorting... dictionaries cannot be sorted. As such, access the sub dictionary
+      and using the length of that, instead of total field length which depends on word length
+    - Some statements point to multiple product lines?
+    - Sort product lines alphabetically?
 """
-import regex as re
 
-# Test data
-decode1 = "IN((Product_Number)), '02') AND IN((Class_Code)), '4') AND IN((Type_Code)), '8','5') AND IN((Purpose_Code)), '530'),'Commercial'"
-decode2 = "IN((Product_Number)), '06') AND IN((Class_Code)), '4') AND IN((Type_Code)), '1','3') AND IN((Purpose_Code)), '515', '530'),'Commercial'"
-decode3 = "IN((Product_Number)), '06') AND IN((Class_Code)), '4') AND IN((Type_Code)), '1','3') AND IN((Purpose_Code)), '515', '530'),'Residential'"
+from pprint import pprint
+import re
 
-test_list = [decode1, decode2, decode3]
+# Open file and grab decode line
+file = open('productline_example.txt')
+statements = file.readlines()
+decodeLine = statements.pop(0)[0:-1]
 
-# GET PRODUCT LINES
+# Create template --------------------------------------------------------------
+statementDict = {}
+for statement in statements:
+    statement = statement[0:-1]
+    # Get product line of statement
+    productLine = statement.rsplit(sep=",'",maxsplit=1)[-1][0:-2]
+    # If not in dict, add it
+    if productLine not in statementDict.keys():
+        statementDict[productLine] = {}
+    # Get fields of statement
+    fieldRegex = re.compile(r'RTRIM\((.*?)\)')
+    fields = re.findall(fieldRegex,statement)
+    fields.sort() #WHY are fields sorted here alphabetically? I think the order matters.
+    # Create string of concatenated field names - serves as unique ID for merging
+    fieldsID = ''.join(fields)
+    if fieldsID not in statementDict[productLine].keys():
+        statementDict[productLine][fieldsID] = {}   # WHY is this blank?
+    for f in fields:
+        string = f+'numbers'
+        # TODO: get sorted list of numbers and replace string var. Need to write regex that selects numbers
+        # May use AND statement as a reference... but, need to account for last group of numbers
+        if f not in statementDict[productLine][fieldsID].keys():
+            statementDict[productLine][fieldsID][f] = string
 
-product_lines = [line.rsplit(sep=',', maxsplit=1)[1] for line in test_list]
-print(product_lines)
+# Create decode statements -----------------------------------------------------
+decodeList = []
+for k, v in statementDict.items():
+    productLine = k
+    for k2, v2 in v.items():
+        for k3, v3 in v2.items():
+            field = k3
+            values = v3
 
-# GET FIELDS
-pattern = r'\([()]*(\([^()]*\)[^()]*)*\)'
+            string = f'{productLine}, {field}, {values}\n'
+            # TODO: Add formatting to match decode statement string
+            decodeList.append(string)
 
-fields = [re.findall(pattern, line) for line in test_list]
-print(fields)
-
-# GET NUMBERS
-numbers = [re.findall(r'\d', line) for line in test_list]   # should I create a group here? To create dict?
-print(numbers)
-
-# SORT NUMBERS
-a = '1'
-b = '5'
-c = '3'
-listValues = []
-listValues.append(a)
-listValues.append(b)
-listValues.append(c)
-
-sorted_list = listValues.sort(key=int)
-Values = ', '.join(listValues)
-print(Values)
-
-# Bring it together
-def decode_function(decode_statements):
-    """ Function to together previos logic. Determines if product line exists,
-    then if fields match. If true, append numbers together and sort. If false,
-    create new decode statement.
-    """
-
-    existing_prod_lines = []
-
-    for statement in decode_statements:
-
-        product_line = [statement.rsplit(sep=',', maxsplit=1)[1]]
-        fields = [re.findall(pattern, line) for line in test_list]
-
-        if product_line in existing_prod_lines:
-            print('Already exists')
-
-        else:
-            existing_prod_lines.append(product_line)
-            print('Does not exist')
-
-run = decode_function(test_list)
-print(run)
+decodeList.insert(0,decodeLine+'\n')
+decodeString = ''.join(decodeList)
+output =  open('output.txt','w')
+output.write(decodeString)
+output.close()
+pprint(statementDict)

@@ -1,0 +1,111 @@
+decode(true,
+
+IN(LTRIM(rtrim(Extract_Fed_Call_Code)),'1A2','1B','1E1','1E2','4A','1D') AND IN(LTRIM(rtrim(Extract_Commitment_Type)),'LOC','ORC') AND IN(LTRIM(rtrim(Extract_Note_Type)),'205','617','217'),'Construction, Land Dev, Other Land - LOC Excludes SFR',
+
+IN(LTRIM(rtrim(Extract_Fed_Call_Code)),'1A2','1B','1E1','1E2','4A','1D') AND IN(LTRIM(rtrim(Extract_Note_Type)),'205','617','217') AND (IN(LTRIM(rtrim(Extract_Commitment_Type)),'CON','DRW','LNK','') OR ISNULL(LTRIM(RTRIM(Extract_Commitment_Type)))),'Construction, Land Dev, Other Land Loans Excludes SFR',
+
+IN(LTRIM(rtrim(Extract_Fed_Call_Code)),'1A1','1C2A','1C1') AND IN(LTRIM(rtrim(Extract_Note_Type)),'205','617','217') AND (IN(LTRIM(rtrim(Extract_Commitment_Type)),'CON','DRW','LNK','') OR ISNULL(LTRIM(RTRIM(Extract_Commitment_Type)))),'Construction, Land Dev, Other Land Loans - SFR',
+
+IN(LTRIM(rtrim(Extract_Fed_Call_Code)),'1A1','1C2A','1C1') AND IN(LTRIM(rtrim(Extract_Commitment_Type)),'LOC','ORC') AND IN(LTRIM(rtrim(Extract_Note_Type)),'205','617','217'),'Construction, Land Dev, Other Land - LOC - SFR',
+
+IN(LTRIM(rtrim(Extract_Fed_Call_Code)),'1B') AND (IN(LTRIM(rtrim(Extract_Commitment_Type)),'CON','DRW','LNK','') OR ISNULL(LTRIM(RTRIM(Extract_Commitment_Type)))) AND IN(LTRIM(rtrim(Extract_Note_Type)),'204','615'),'Farmland',
+
+IN(LTRIM(rtrim(Extract_Fed_Call_Code)),'1B') AND IN(LTRIM(rtrim(Extract_Commitment_Type)),'LOC','ORC') AND IN(LTRIM(rtrim(Extract_Note_Type)),'204','615'),'Farmland LOC',
+
+IN(LTRIM(rtrim(Extract_Fed_Call_Code)),'1D') AND (IN(LTRIM(rtrim(Extract_Commitment_Type)),'CON','DRW','LNK','') OR ISNULL(LTRIM(RTRIM(Extract_Commitment_Type)))) AND IN(LTRIM(rtrim(Extract_Note_Type)),'204','615'),'Multi-Family Residential',
+
+IN(LTRIM(rtrim(Extract_Fed_Call_Code)),'1D') AND IN(LTRIM(rtrim(Extract_Commitment_Type)),'LOC','ORC') AND IN(LTRIM(rtrim(Extract_Note_Type)),'204','615'),'Multi-Family Residential LOC',
+
+IN(LTRIM(rtrim(Extract_Fed_Call_Code)),'1E2') AND (IN(LTRIM(rtrim(Extract_Commitment_Type)),'CON','DRW','LNK','') OR ISNULL(LTRIM(RTRIM(Extract_Commitment_Type)))) AND IN(LTRIM(rtrim(Extract_Note_Type)),'204','615'),'Commercial Property Non Owner-Occupied',
+
+IN(LTRIM(rtrim(Extract_Fed_Call_Code)),'1E2') AND IN(LTRIM(rtrim(Extract_Commitment_Type)),'LOC','ORC') AND IN(LTRIM(rtrim(Extract_Note_Type)),'204','615'),'Commercial Property LOC - Non Owner-Occupied',
+
+IN(LTRIM(rtrim(Extract_Fed_Call_Code)),'1E1') AND (IN(LTRIM(rtrim(Extract_Commitment_Type)),'CON','DRW','LNK','') OR ISNULL(LTRIM(RTRIM(Extract_Commitment_Type)))) AND IN(LTRIM(rtrim(Extract_Note_Type)),'204','615'),'Commercial Property - Owner Occupied',
+
+IN(LTRIM(rtrim(Extract_Fed_Call_Code)),'1E1') AND IN(LTRIM(rtrim(Extract_Commitment_Type)),'LOC','ORC') AND IN(LTRIM(rtrim(Extract_Note_Type)),'204','615'),'Commercial Property LOC - Owner Occupied',
+
+IN(LTRIM(rtrim(Extract_Note_Type)),'203'),'Commercial Tax Free',
+
+IN(LTRIM(rtrim(Extract_Fed_Call_Code)),'9B1') AND (IN(LTRIM(rtrim(Extract_Commitment_Type)),'CON','DRW','LNK','') OR ISNULL(LTRIM(RTRIM(Extract_Commitment_Type)))) AND IN(LTRIM(rtrim(Extract_Note_Type)),'206'), 'Commercial Stocks & Bonds',
+
+IN(LTRIM(rtrim(Extract_Fed_Call_Code)),'9B1') AND IN(LTRIM(rtrim(Extract_Commitment_Type)),'LOC','ORC') AND IN(LTRIM(rtrim(Extract_Note_Type)),'206'), 'Commercial LOC - Stocks & Bonds',
+
+IN(LTRIM(rtrim(Extract_Fed_Call_Code)),'9B2') AND (IN(LTRIM(rtrim(Extract_Commitment_Type)),'CON','DRW','LNK','') OR ISNULL(LTRIM(RTRIM(Extract_Commitment_Type)))) AND IN(LTRIM(rtrim(Extract_Note_Type)),'206'), 'Commercial All Other - Non Profit',
+
+IN(LTRIM(rtrim(Extract_Fed_Call_Code)),'9B2') AND IN(LTRIM(rtrim(Extract_Commitment_Type)),'LOC','ORC') AND IN(LTRIM(rtrim(Extract_Note_Type)),'206'), 'Commercial LOC - All Other - Non Profit',
+
+IN(LTRIM(rtrim(Extract_Note_Type)),'216'),'On Demand All Other',
+
+IN(LTRIM(rtrim(Extract_Note_Type)),'215'),'On Demand Commercial Construction',
+
+IN(LTRIM(rtrim(Extract_Note_Type)),'214'),'On Demand Commercial RE',
+
+IN(LTRIM(rtrim(Extract_Fed_Call_Code)),'1C2A') AND (IN(LTRIM(rtrim(Extract_Commitment_Type)),'CON','DRW','LNK','') OR ISNULL(LTRIM(RTRIM(Extract_Commitment_Type)))) AND IN(LTRIM(rtrim(Extract_Note_Type)),'204','615'),'Secured by 1-4 Family 1st Lien',
+
+IN(LTRIM(rtrim(Extract_Fed_Call_Code)),'1C2B') AND (IN(LTRIM(rtrim(Extract_Commitment_Type)),'CON','DRW','LNK','') OR ISNULL(LTRIM(RTRIM(Extract_Commitment_Type)))) AND IN(LTRIM(rtrim(Extract_Note_Type)),'204','615'),'Secured by 1-4 Family Jr Lien',
+
+IN(LTRIM(rtrim(Extract_Fed_Call_Code)),'1C2A') AND IN(LTRIM(rtrim(Extract_Commitment_Type)),'LOC','ORC') AND IN(LTRIM(rtrim(Extract_Note_Type)),'204','615'),'Secured by 1-4 Family 1st Lien - LOC',
+
+IN(LTRIM(rtrim(Extract_Fed_Call_Code)),'1C2B') AND IN(LTRIM(rtrim(Extract_Commitment_Type)),'LOC','ORC') AND IN(LTRIM(rtrim(Extract_Note_Type)),'204','615'),'Secured by 1-4 Family Jr Lien - LOC',
+
+IN(LTRIM(rtrim(Extract_Note_Category_Code)),'C','R') AND IN(LTRIM(rtrim(Extract_Note_Category_Description)),'Commercial','Revolving') AND IN(LTRIM(rtrim(Extract_Commitment_Type)),'LOC','ORC','RCL') AND IN(LTRIM(rtrim(Extract_Note_Type)),'202','206','775'), 'Commercial LOC - All Other',
+
+IN(LTRIM(rtrim(Extract_Commitment_Type)),'LOC','ORC') AND IN(LTRIM(rtrim(Extract_Note_Type)),'403','630'),'Farmland LOC',
+
+(IN(LTRIM(rtrim(Extract_Commitment_Type)),'LTR','CON','DRW','LNK','') OR ISNULL(LTRIM(RTRIM(Extract_Commitment_Type)))) AND IN(LTRIM(rtrim(Extract_Note_Type)),'404','635'),'Farmland FSA Guaranty',
+
+IN(LTRIM(rtrim(Extract_Commitment_Type)),'LOC','ORC') AND IN(LTRIM(rtrim(Extract_Note_Type)),'404','635'),'Farmland LOC - FSA Guaranty',
+
+IN(LTRIM(rtrim(Extract_Commitment_Type)),'LOC','ORC') AND IN(LTRIM(rtrim(Extract_Note_Type)),'401'),'Production LOC',
+
+(IN(LTRIM(rtrim(Extract_Commitment_Type)),'LTR','CON','DRW','LNK','') OR ISNULL(LTRIM(RTRIM(Extract_Commitment_Type)))) AND IN(LTRIM(rtrim(Extract_Note_Type)),'402'),'Ag All Other - FSA Guaranty',
+
+IN(LTRIM(rtrim(Extract_Commitment_Type)),'LOC','ORC') AND IN(LTRIM(rtrim(Extract_Note_Type)),'402'),'Agriculture Loan - LOC - FSA Guaranty',
+
+(IN(LTRIM(rtrim(Extract_Commitment_Type)),'CON','DRW','LNK','') OR ISNULL(LTRIM(RTRIM(Extract_Commitment_Type)))) AND IN(LTRIM(rtrim(Extract_Note_Type)),'209'), 'Unsecured',
+
+IN(LTRIM(rtrim(Extract_Commitment_Type)),'LTR') AND IN(LTRIM(rtrim(Extract_Note_Type)),'206','208','209','210','211','212','213'), 'Commercial Stand By Letter of Credit',
+
+IN(LTRIM(rtrim(Extract_Commitment_Type)),'LTR') AND IN(LTRIM(rtrim(Extract_Note_Type)),'200','204','615','205','217','617'), 'Commercial Stand By Letter of Credit',
+
+(IN(LTRIM(rtrim(Extract_Commitment_Type)),'LTR','CON','DRW','LNK','') OR ISNULL(LTRIM(RTRIM(Extract_Commitment_Type)))) AND IN(LTRIM(rtrim(Extract_Note_Type)),'403','630'),'Farmland',
+
+(IN(LTRIM(rtrim(Extract_Commitment_Type)),'CON','DRW','LNK','') OR ISNULL(LTRIM(RTRIM(Extract_Commitment_Type)))) AND IN(LTRIM(rtrim(Extract_Note_Type)),'212'), 'Commercial Accts. Rec / Inv / FFE',
+
+IN(LTRIM(rtrim(Extract_Commitment_Type)),'LOC','ORC') AND IN(LTRIM(rtrim(Extract_Note_Type)),'212'), 'Commercial LOC - Accts. Rec / Inv / FFE',
+
+(IN(LTRIM(rtrim(Extract_Commitment_Type)),'CON','DRW','LNK','') OR ISNULL(LTRIM(RTRIM(Extract_Commitment_Type)))) AND IN(LTRIM(rtrim(Extract_Note_Type)),'210'), 'Commercial New Equip / Vehicle',
+
+IN(LTRIM(rtrim(Extract_Commitment_Type)),'LOC','ORC') AND IN(LTRIM(rtrim(Extract_Note_Type)),'210'), 'Commercial LOC - New Equip / Vehicle',
+
+IN(LTRIM(rtrim(Extract_Commitment_Type)),'LOC','ORC') AND IN(LTRIM(rtrim(Extract_Note_Type)),'211'), 'Commercial LOC - Used Equip / Vehicle',
+
+(IN(LTRIM(rtrim(Extract_Commitment_Type)),'CON','DRW','LNK','') OR ISNULL(LTRIM(RTRIM(Extract_Commitment_Type)))) AND IN(LTRIM(rtrim(Extract_Note_Type)),'211'),'Commercial Used Equip / Vehicle',
+
+(IN(LTRIM(rtrim(Extract_Commitment_Type)),'CON','DRW','LNK','') OR ISNULL(LTRIM(RTRIM(Extract_Commitment_Type)))) AND IN(LTRIM(rtrim(Extract_Note_Type)),'206','202'), 'Commercial - All Other',
+
+IN(LTRIM(rtrim(Extract_Commitment_Type)),'LOC','ORC') AND IN(LTRIM(rtrim(Extract_Note_Type)),'209'), 'Unsecured LOC',
+
+IN(LTRIM(rtrim(Extract_Fed_Call_Code)),'1A2') AND IN(LTRIM(rtrim(Extract_Note_Type)),'204','615'), 'Vacant',
+
+IN(LTRIM(rtrim(Extract_Note_Type)),'208'), 'SBA 504 All Oth',
+
+IN(LTRIM(rtrim(Extract_Note_Type)),'200'), 'SBA 504 RE',
+
+IN(LTRIM(rtrim(Extract_Note_Type)),'214'),'On Demand Commercial RE',
+
+IN(LTRIM(rtrim(Extract_Commitment_Type)),'ACH'),'ACH',
+
+IN(LTRIM(rtrim(Extract_Commitment_Type)),'WRE'),'Wires',
+
+IN(LTRIM(rtrim(Extract_Commitment_Type)),'RBD'),'RBD',
+
+IN(LTRIM(rtrim(Extract_Commitment_Type)),'OGL','MLC'),'Guidance Line of Credit',
+
+IN(LTRIM(rtrim(Extract_Commitment_Type)),'TGL'),'Guidance Line of Credit',
+
+(IN(LTRIM(rtrim(Extract_Commitment_Type)),'LTR','CON','DRW','LNK','') OR ISNULL(LTRIM(RTRIM(Extract_Commitment_Type)))) AND IN(LTRIM(rtrim(Extract_Note_Type)),'401'), 'Ag All Other',
+
+(IN(LTRIM(rtrim(Extract_Commitment_Type)),'CON','DRW','LNK','') OR ISNULL(LTRIM(RTRIM(Extract_Commitment_Type)))) AND IN(LTRIM(rtrim(Extract_Note_Type)),'213'),'Commercial - CD Secured',
+
+IN(LTRIM(rtrim(Extract_Commitment_Type)),'LOC','ORC') AND IN(LTRIM(rtrim(Extract_Note_Type)),'213'),'Commercial LOC - CD Secured')
