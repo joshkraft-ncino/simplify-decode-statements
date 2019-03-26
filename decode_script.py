@@ -17,20 +17,17 @@ In the above example, lines 1 and 2 should be combined, as they both contain the
 Line 3 should not be combined, as it contains an extra field which is not contained in Lines 1 or 2.
 
 General To Do
-    - Get list of numbers using regex, then sort ascending. Right now selects as messy string
-    - account for NA's (are all NA's using the same format?)
+    - Get list of numbers using regex, then sort ascending. Currently, regex selects a messy string
+    - account for NA's (are all NA's using the same format? i.e. n/a, na, null, etc.)
     - Figure out sorting... dictionaries cannot be sorted. As such, access the sub dictionary
-      and using the length of that, instead of total field length which depends on word length
+      and use the length of that, instead of total field length which depends on word length
     - Some statements point to multiple product lines?
-    - Sort product lines alphabetically?
 
 Questions for Nicole:
-    - is my understanding of complexity correct? I.E. strings with most fields at the top for each product line?
-    - How should I account for NA's? IE at top of productline_example
+    - Should product lines be sorted alphabetically?
     - Should I maintain sorting of fields within each statement?
-    - Use for a tool to visualize nestings and for input of new codes?
-    - How often do we have to put in new decodes?
-    - How long should my presentation be? Should I have a ppt?
+    - Any for a tool to visualize nestings and for input of new codes?
+
 """
 
 from pprint import pprint
@@ -41,7 +38,7 @@ file = open('productline_example.txt')
 statements = file.readlines()
 decodeLine = statements.pop(0)[0:-1]
 
-# Create Master Combination dict ----------------------------------------------
+# Create Master Combination dict (yet to be implemented)------------------------------
 """
 masterDict = {}
 for statement in statements:
@@ -87,7 +84,6 @@ for statement in statements:
         # TODO: get sorted list of numbers and replace string var. Need to write regex that selects numbers
         if f not in statementDict[productLine][fieldsID].keys():
             statementDict[productLine][fieldsID][f] = string
-        # THIS IS NOW FUNCTIONING. BUT, it needs to select only those numbers related to the field! Need to roll back and find
 
 # Create decode statements -----------------------------------------------------
 decodeList = []
