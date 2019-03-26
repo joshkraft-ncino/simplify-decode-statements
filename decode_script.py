@@ -17,12 +17,20 @@ In the above example, lines 1 and 2 should be combined, as they both contain the
 Line 3 should not be combined, as it contains an extra field which is not contained in Lines 1 or 2.
 
 General To Do
-    - Get list of numbers using regex, then sort ascending
+    - Get list of numbers using regex, then sort ascending. Right now selects as messy string
     - account for NA's (are all NA's using the same format?)
     - Figure out sorting... dictionaries cannot be sorted. As such, access the sub dictionary
       and using the length of that, instead of total field length which depends on word length
     - Some statements point to multiple product lines?
     - Sort product lines alphabetically?
+
+Questions for Nicole:
+    - is my understanding of complexity correct? I.E. strings with most fields at the top for each product line?
+    - How should I account for NA's? IE at top of productline_example
+    - Should I maintain sorting of fields within each statement?
+    - Use for a tool to visualize nestings and for input of new codes?
+    - How often do we have to put in new decodes?
+    - How long should my presentation be? Should I have a ppt?
 """
 
 from pprint import pprint
@@ -33,6 +41,21 @@ file = open('productline_example.txt')
 statements = file.readlines()
 decodeLine = statements.pop(0)[0:-1]
 
+# Create Master Combination dict ----------------------------------------------
+"""
+masterDict = {}
+for statement in statements:
+    statement = statement[0:-1]
+    productLine = statement.rsplit(sep=",'",maxsplit=1)[-1][0:-2]
+    s1 = dict(statement.split(")") for item in statement.split("))"))
+    print(s1)
+
+
+    for k in masterDict.items():
+        productLine = k
+
+pprint(masterDict.items())
+"""
 # Create template --------------------------------------------------------------
 statementDict = {}
 for statement in statements:
@@ -48,7 +71,7 @@ for statement in statements:
     # Get fields of statement
     fieldRegex = re.compile(r'RTRIM\((.*?)\)')
     fields = re.findall(fieldRegex,statement)
-    fields.sort() #WHY are fields sorted here alphabetically? I think the order matters.
+    fields.sort() #WHY are fields sorted here alphabetically?
 
     # Create string of concatenated field names - serves as unique ID for merging
     fieldsID = ''.join(fields)
@@ -57,17 +80,15 @@ for statement in statements:
 
     # Get numbers + sort
     for f in fields:
-        codeRegex = re.compile('\d+')
-        code = re.findall('\d+',statement)
-        string = f + str(code)
+        # TODO: updates regex to actually return numbers instead of a string
+        codeRegex = re.compile('(?<=%s\)\)\, )(.+?)(?=\))' % f)
+        code = re.findall(codeRegex,statement)
+        string = str(code)
         # TODO: get sorted list of numbers and replace string var. Need to write regex that selects numbers
-        # May use AND statement as a reference... but, need to account for last group of numbers
         if f not in statementDict[productLine][fieldsID].keys():
             statementDict[productLine][fieldsID][f] = string
-        print(string)
-        # THIS IS NOW FUNCTIONING. BUT, it needs to select only those numbers related to the field!
+        # THIS IS NOW FUNCTIONING. BUT, it needs to select only those numbers related to the field! Need to roll back and find
 
-'''
 # Create decode statements -----------------------------------------------------
 decodeList = []
 for k, v in statementDict.items():
@@ -77,8 +98,8 @@ for k, v in statementDict.items():
             field = k3
             values = v3
 
-            string = f'{productLine}, {field}, {values}\n'
-            # TODO: Add formatting to match decode statement string
+            string = f"IN(LTRIM(RTRIM({v2})), {values}), '{productLine}',\n"
+            # TODO: Add formatting to match decode statement string. Make sure last line has no comma.
             decodeList.append(string)
 
 decodeList.insert(0,decodeLine+'\n')
@@ -87,4 +108,3 @@ output =  open('output.txt','w')
 output.write(decodeString)
 output.close()
 pprint(statementDict)
-'''
