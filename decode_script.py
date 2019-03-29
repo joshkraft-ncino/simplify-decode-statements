@@ -68,7 +68,7 @@ for statement in statements:
     # Get fields of statement
     fieldRegex = re.compile(r'RTRIM\((.*?)\)')
     fields = re.findall(fieldRegex,statement)
-    fields.sort() #WHY are fields sorted here alphabetically?
+
 
     # Create string of concatenated field names - serves as unique ID for merging
     fieldsID = ''.join(fields)
@@ -77,13 +77,16 @@ for statement in statements:
 
     # Get numbers + sort
     for f in fields:
-        # TODO: updates regex to actually return numbers instead of a string
-        codeRegex = re.compile('(?<=%s\)\)\, )(.+?)(?=\))' % f)
+        # TODO: Clean up regex. This is a messy workaround
+        codeRegex = re.compile("(?<=%s\)\)\, )'(.*?)'(?=\))" % f)
         code = re.findall(codeRegex,statement)
-        string = str(code)
+        #code = [c.replace("'",'').split(',') for c in code][0]
+        #code = [int(c) for c in code if c != 'N/A']
+        #code.sort()
+        #Conver code to string here?
         # TODO: get sorted list of numbers and replace string var. Need to write regex that selects numbers
         if f not in statementDict[productLine][fieldsID].keys():
-            statementDict[productLine][fieldsID][f] = string
+            statementDict[productLine][fieldsID][f] = code
 
 # Create decode statements -----------------------------------------------------
 decodeList = []
@@ -103,4 +106,30 @@ decodeString = ''.join(decodeList)
 output =  open('output.txt','w')
 output.write(decodeString)
 output.close()
-pprint(statementDict)
+
+
+# Give user relevant section of decode -----------------------------------------------------
+"""
+Stage one: Get user input, simply suggest which line to look at for decode insertion
+"""
+
+line_input_string = input("What product type would you like to add: ")
+
+if line_input_string in statementDict.keys():
+    print("This product line already exists.")
+
+    field_input_string = input("What fields would you like to add (comma separated)? ")
+    field_input_list = [x.strip() for x in field_input_string.split(',')]
+    field_input_concat = ''.join(field_input_list)
+
+    if field_input_concat in statementDict[line_input_string].keys():
+
+        print("This combination of fields already exists for this product line")
+        print(statementDict[line_input_string][field_input_concat])
+
+    else:
+        print("This combination of field does NOT exist for this product line.")
+
+
+else:
+     print("That product line does not exist. Check spelling!")
