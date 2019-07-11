@@ -1,0 +1,7 @@
+(PLACEHOLDER LINE)
+IN(LTRIM(RTRIM(Extract_CURRMIACCTTYPCD)),'BFV'),'Business First Visa', 
+IN(LTRIM(RTRIM(Extract_CURRMIACCTTYPCD)),'CV'),'Visa Classic', 
+IN(LTRIM(RTRIM(Extract_CURRMIACCTTYPCD)),'GV'),'Visa Gold', 
+IN(LTRIM(RTRIM(Extract_CURRMIACCTTYPCD)),'HBRV'),'Hillsborough Rewards', 
+IN(LTRIM(RTRIM(Extract_CURRMIACCTTYPCD)),'PMV'),'Premium Visa', 
+IN(LTRIM(RTRIM(Extract_CURRMIACCTTYPCD)),'PRV'),'Pure Rewards Visa', 
