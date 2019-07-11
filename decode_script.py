@@ -110,7 +110,7 @@ output.close()
 
 # Give user relevant section of decode -----------------------------------------------------
 """
-Stage one: Get user input, simply suggest which line to look at for decode insertion
+Stage one: Get user input, suggest which line to look at for decode insertion
 """
 
 line_input_string = input("What product type would you like to add: ")
@@ -132,4 +132,4 @@ if line_input_string in statementDict.keys():
 
 
 else:
-     print("That product line does not exist. Check spelling!")
+     print("That product line does not exist. Check your spelling!")
